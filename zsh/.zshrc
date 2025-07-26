@@ -110,6 +110,7 @@ source ~/.oh-my-zsh/custom/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 # Example aliases
  alias zshconfig="nvim ~/dots/zsh/.zshrc"
  alias ohmyzsh="nvim ~/.oh-my-zsh"
+ alias vvv="nvim ."
 
 #
 # Add Oh My Posh, with default config theme:
@@ -118,7 +119,7 @@ eval "$(oh-my-posh init zsh --config '~/dots/oh-my-posh/thrly.yaml')"
 # Add Zoxide for cd alternative
 eval "$(zoxide init zsh)"
 
-# OMP zsh-vi-mode integration
+# OMP zsh-vi-mode integration / not currently in use
 # _omp_redraw-prompt() {
 #   local precmd
 #   for precmd in "${precmd_functions[@]}"; do
