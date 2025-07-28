@@ -26,3 +26,6 @@ vim.keymap.set("n", "c", '"_c')
 -- Quickly go to the start/end of the line while in insert mode.
 vim.keymap.set("i", "<C-i>", "<C-o>I", { desc = "Go to the start of the line" })
 vim.keymap.set("i", "<C-a>", "<C-o>A", { desc = "Go to the end of the line" })
+
+-- yank to end of line with Y
+vim.keymap.set("n", "Y", "$y", { desc = "Yank to End of lines" })

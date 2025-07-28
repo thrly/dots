@@ -26,7 +26,14 @@ return {
       },
     },
   },
-
+  -- {
+  --   dir = "/home/thrly/dev/petrichor.nvim", -- or wherever your repo is
+  --   name = "petrichor",
+  --   priority = 1000,
+  --   config = function()
+  --     require("petrichor").setup()
+  --   end,
+  -- },
   {
     -- lua/plugins/rose-pine.lua
     "rose-pine/neovim",
@@ -40,7 +47,8 @@ return {
   { -- set default/starting colorscheme
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "tokyonight-moon",
+      -- colorscheme = "petrichor",
+      -- colorscheme = "tokyonight-moon",
     },
   },
   {
