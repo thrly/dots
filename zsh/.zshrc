@@ -73,15 +73,14 @@ ZSH_THEME="robbyrussell"
 plugins=(
     # other plugins...
     git
-    fast-syntax-highlighting
     zsh-autosuggestions
+    fast-syntax-highlighting
     zsh-autocomplete
     # zsh-vi-mode
   )
 
 source $ZSH/oh-my-zsh.sh
 source ~/.oh-my-zsh/custom/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -107,10 +106,14 @@ source ~/.oh-my-zsh/custom/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 # - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
+# Aliases
  alias zshconfig="nvim ~/dots/zsh/.zshrc"
  alias ohmyzsh="nvim ~/.oh-my-zsh"
  alias vvv="nvim ."
+
+ alias gtst="git status"
+ alias gtcm="git commit -m "
+ alias ghcl="gh repo clone "
 
 #
 # Add Oh My Posh, with default config theme:
@@ -118,6 +121,7 @@ eval "$(oh-my-posh init zsh --config '~/dots/oh-my-posh/thrly.yaml')"
 
 # Add Zoxide for cd alternative
 eval "$(zoxide init zsh)"
+
 
 # OMP zsh-vi-mode integration / not currently in use
 # _omp_redraw-prompt() {
