@@ -109,11 +109,13 @@ source ~/.oh-my-zsh/custom/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 # Aliases
  alias zshconfig="nvim ~/dots/zsh/.zshrc"
  alias ohmyzsh="nvim ~/.oh-my-zsh"
+ alias nvimconfig="nvim ~/dots/nvim/"
  alias vvv="nvim ."
 
  alias gtst="git status"
  alias gtcm="git commit -m "
  alias ghcl="gh repo clone "
+ alias lg="lazygit"
 
 #
 # Add Oh My Posh, with default config theme:
