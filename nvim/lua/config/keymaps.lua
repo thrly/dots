@@ -8,7 +8,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Center cursor after moving up 
 
 -- Modes and Command
 vim.keymap.set("i", "jj", "<Esc>", { desc = "Escape from Insert mode" })
-vim.keymap.set("n", ";;", ":", { desc = ": Command" })
+-- vim.keymap.set("n", ";;", ":", { desc = ": Command" })
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit Terminal mode" })
 
 -- Easier window movements
