@@ -1,0 +1,171 @@
+# sessionize — tmux session helper with optional fzf+zoxide project picker
+#
+# Usage:
+#   sessionize                        # use CWD as project
+#   sessionize /path/to/dir           # open/create session for path
+#   sessionize name /path             # explicit name + path
+#   sessionize --pick                 # pick a project (zoxide-ranked if available)
+#
+# Env:
+#   SESSIONIZE_DIRS="$HOME/dev:$HOME/work:$HOME/projects"  # fallback scan roots
+#
+# Requires: tmux
+# Optional: fzf (for --pick), zoxide (for ranking)
+
+set -euo pipefail
+
+# ------------------ config ------------------
+
+DEFAULT_DIRS="${SESSIONIZE_DIRS-${HOME}/dev:${HOME}/work:${HOME}/projects:${HOME}}"
+
+# fzf preview kept simple to avoid parsing issues
+preview_cmd='ls -la {}'
+
+# Build fzf args as an array (prevents “unknown option” from mis-parsing)
+FZF_ARGS=(
+  --height=60%
+  --reverse
+  --border
+  --preview "$preview_cmd"
+  --preview-window=right,50%,border-left
+  --prompt "projects> "
+  --bind "ctrl-a:select-all,ctrl-d:deselect-all"
+)
+
+# ------------------ helpers ------------------
+
+die() { printf "sessionize: %s\n" "$*" >&2; exit 1; }
+
+sanitize() {
+  local s="$1"
+  s="${s##*/}"                    # basename
+  s="${s//[^a-zA-Z0-9]/-}"        # non-alnum -> '-'
+  s="${s##-}"; s="${s%%-}"        # trim dashes
+  printf "%s\n" "${s,,}"          # lowercase (POSIX-safe alternative: tr)
+}
+
+in_tmux() { [[ -n "${TMUX-}" ]]; }
+
+tmux_goto() {
+  local sess="$1"
+  if in_tmux; then tmux switch-client -t "$sess"; else tmux attach -t "$sess"; fi
+}
+
+
+create_session() {
+  # Create a 3-window layout by NAME (works regardless of base-index)
+  # and run it as a single chained tmux command so all windows land
+  # in the *new* session we just created.
+
+  local sess="$1" root="$2"
+
+  tmux new-session -d -s "$sess" -c "$root" -n nvim \; \
+       new-window   -t "$sess" -n term    -c "$root"   \; \
+       new-window   -t "$sess" -n scratch -c "$root"   \; \
+       select-window -t "$sess":nvim                     \; \
+       send-keys     -t "$sess":nvim 'nvim .' C-m
+}
+
+
+fallback_dirs() {
+  # Scan roots for “project markers”
+  IFS=: read -r -a roots <<<"${DEFAULT_DIRS}"
+  for r in "${roots[@]}"; do
+    r="${r/#\~/$HOME}"
+    [[ -d "$r" ]] || continue
+    find "$r" -maxdepth 3 -type d \( \
+      -name ".git" -o -name "node_modules" -o -name ".venv" -o -name "venv" \) -prune -o \
+      -type f \( -name "package.json" -o -name "pyproject.toml" -o -name "Cargo.toml" -o -name "go.mod" \) \
+      -printf '%h\n' 2>/dev/null | sort -u
+  done
+}
+
+zoxide_list() {
+  zoxide query -l 2>/dev/null || true
+}
+
+pick_project() {
+  local list choice
+
+  if command -v zoxide >/dev/null 2>&1; then
+    list="$(zoxide_list)"
+  else
+    list="$(fallback_dirs)"
+  fi
+
+  # empty after removing all whitespace?
+  if [[ -z "${list//[[:space:]]/}" ]]; then
+    die "No projects found. Set SESSIONIZE_DIRS or install zoxide."
+  fi
+
+  command -v fzf >/dev/null 2>&1 || die "--pick requires fzf. Install fzf or run without --pick."
+
+  choice="$(printf "%s\n" "$list" \
+    | awk 'NF' \
+    | sed -e "s#^~#$HOME#" \
+    | fzf "${FZF_ARGS[@]}")" || true
+
+  [[ -n "$choice" ]] || die "No selection made."
+
+  # echo canonical absolute path so caller can capture it
+  ( cd "$choice" 2>/dev/null && pwd ) || die "Invalid selection: $choice"
+}
+
+# ------------------ args ------------------
+
+SESSION_NAME=""
+PROJECT_DIR=""
+USE_PICKER=false
+
+while (( "$#" )); do
+  case "$1" in
+    --pick|-p) USE_PICKER=true; shift ;;
+    --help|-h) sed -n '1,120p' "$0"; exit 0 ;;
+    --) shift; break ;;
+    -*) die "Unknown option: $1" ;;
+    *) break ;;
+  esac
+done
+
+if $USE_PICKER; then
+  PROJECT_DIR="$(pick_project)"
+fi
+
+case "$#" in
+  0)
+    [[ -n "${PROJECT_DIR:-}" ]] || PROJECT_DIR="$(pwd)"
+    ;;
+  1)
+    if [[ -d "$1" ]]; then
+      PROJECT_DIR="$(cd "$1" && pwd)"
+    else
+      SESSION_NAME="$(sanitize "$1")"
+      [[ -n "${PROJECT_DIR:-}" ]] || PROJECT_DIR="$(pwd)"
+    fi
+    ;;
+  2)
+    SESSION_NAME="$(sanitize "$1")"
+    [[ -d "$2" ]] || die "No such directory: $2"
+    PROJECT_DIR="$(cd "$2" && pwd)"
+    ;;
+  *)
+    die "Too many arguments."
+    ;;
+esac
+
+# Derive session name from project if not set
+if [[ -z "$SESSION_NAME" ]]; then
+  SESSION_NAME="$(sanitize "$PROJECT_DIR")"
+fi
+
+[[ -d "$PROJECT_DIR" ]] || die "Project dir is not a directory: $PROJECT_DIR"
+
+# ------------------ main ------------------
+
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+  tmux_goto "$SESSION_NAME"
+  exit 0
+fi
+
+create_session "$SESSION_NAME" "$PROJECT_DIR"
+tmux_goto "$SESSION_NAME"
