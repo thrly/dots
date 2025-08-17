@@ -1,15 +1,15 @@
 # dots
 
-my dotfile configs: neovim, zsh, terminal
+My cross-platform dotfiles for **neovim**, **tmux**, **Zsh**, **Windows Terminal**, and friends.
+
+> [!NOTE]
+> ⚠️ Personal configs, provided as-is. Skim before you run anything. dots
 
 ![Desktop Image](./img/desktop.png)
 
 ## Use
 
 to use these dotfiles, clone to local, then run the relevant [symlinks](./symlinks) to link the files. System specific instructions below...
-
-> [!NOTE]
-> These are my personal dotfiles. Use them at your own risk...
 
 ## Linux / WSL
 
@@ -66,3 +66,45 @@ This repo's [.zshrc](./zsh/.zshrc) file takes care of adding the plugins and sou
 ## Windows terminal
 
 `settings.json` can be symlinked to: `$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json` or similar. In Powershell: [symlinks/link-win-terminal.ps1](./symlinks/link-win-terminal.ps1)
+
+## Highlights & Keybinds
+
+### tmux
+
+Prefix: `C-a`` (Ctrl+a).
+
+Windows over splits by default (clean tabs workflow).
+
+#### Sessionizer:
+
+`sessionize` → open/attach 3-window layout: nvim, term, scratch.
+
+`sessionize --pick` → fuzzy-pick a project (uses zoxide ranking if available).
+
+Recommended binds (add to ./tmux/tmux.conf if not present):
+
+```tmux
+# Pick a project with fzf/zoxide
+
+bind P run-shell 'sessionize --pick'
+
+# Prompt for a directory (or "name /path")
+
+bind s command-prompt -p "session dir (or 'name /path'):" "run-shell 'sessionize %%'"
+```
+
+### Neovim
+
+All LazyVim, baby...
+
+### Zsh
+
+Oh-My-Zsh with common plugins (syntax highlighting, autosuggestions, autocomplete).
+
+zoxide integration for quick directory jumps.
+
+Oh-My-Posh prompt (optional) with a custom theme.
+
+### Windows Terminal
+
+Curated settings.json (fonts, color, panes, profiles) for a consistent look across machines.
