@@ -95,6 +95,8 @@ source ~/.oh-my-zsh/custom/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
    export EDITOR='nvim'
  fi
 
+ export VISUAL='nvim'
+
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
 
