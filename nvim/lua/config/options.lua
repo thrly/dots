@@ -3,11 +3,11 @@
 -- Add any additional options here
 --
 ---- Disable ESLint LSP server and hide virtual text in Neovim
-local isLspDiagnosticsVisible = true
-vim.keymap.set("n", "<leader>lx", function()
-  isLspDiagnosticsVisible = not isLspDiagnosticsVisible
-  vim.diagnostic.config({
-    virtual_text = isLspDiagnosticsVisible,
-    underline = isLspDiagnosticsVisible,
-  })
-end, { desc = "Toggle LSP" })
+-- local isLspDiagnosticsVisible = true
+-- vim.keymap.set("n", "<leader>lx", function()
+--   isLspDiagnosticsVisible = not isLspDiagnosticsVisible
+--   vim.diagnostic.config({
+--     virtual_text = isLspDiagnosticsVisible,
+--     underline = isLspDiagnosticsVisible,
+--   })
+-- end, { desc = "Toggle LSP" })
