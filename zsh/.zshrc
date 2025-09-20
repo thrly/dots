@@ -126,7 +126,7 @@ eval "$(oh-my-posh init zsh --config '~/dots/oh-my-posh/thrly.yaml')"
 # Add Zoxide for cd alternative
 eval "$(zoxide init zsh)"
 
-export SESSIONIZE_DIRS="$HOME/dev:$HOME/work:$HOME/projects"
+export sssn_DIRS="$HOME/dev:$HOME/work:$HOME/projects"
 
 
 # OMP zsh-vi-mode integration / not currently in use

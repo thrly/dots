@@ -1,13 +1,13 @@
-# sessionize — tmux session helper with optional fzf+zoxide project picker
+# sssn — tmux session helper with optional fzf+zoxide project picker
 #
 # Usage:
-#   sessionize                        # use CWD as project
-#   sessionize /path/to/dir           # open/create session for path
-#   sessionize name /path             # explicit name + path
-#   sessionize --pick                 # pick a project (zoxide-ranked if available)
+#   sssn                        # use CWD as project
+#   sssn /path/to/dir           # open/create session for path
+#   sssn name /path             # explicit name + path
+#   sssn --pick                 # pick a project (zoxide-ranked if available)
 #
 # Env:
-#   SESSIONIZE_DIRS="$HOME/dev:$HOME/work:$HOME/projects"  # fallback scan roots
+#   sssn_DIRS="$HOME/dev:$HOME/work:$HOME/projects"  # fallback scan roots
 #
 # Requires: tmux
 # Optional: fzf (for --pick), zoxide (for ranking)
@@ -16,7 +16,7 @@ set -euo pipefail
 
 # ------------------ config ------------------
 
-DEFAULT_DIRS="${SESSIONIZE_DIRS-${HOME}/dev:${HOME}/work:${HOME}/projects:${HOME}}"
+DEFAULT_DIRS="${sssn_DIRS-${HOME}/dev:${HOME}/work:${HOME}/projects:${HOME}}"
 
 # fzf preview kept simple to avoid parsing issues
 preview_cmd='ls -la {}'
@@ -34,7 +34,7 @@ FZF_ARGS=(
 
 # ------------------ helpers ------------------
 
-die() { printf "sessionize: %s\n" "$*" >&2; exit 1; }
+die() { printf "sssn: %s\n" "$*" >&2; exit 1; }
 
 sanitize() {
   local s="$1"
@@ -62,8 +62,10 @@ create_session() {
   tmux new-session -d -s "$sess" -c "$root" -n nvim \; \
        new-window   -t "$sess" -n term    -c "$root"   \; \
        new-window   -t "$sess" -n scratch -c "$root"   \; \
-       select-window -t "$sess":nvim                     \; \
-       send-keys     -t "$sess":nvim 'nvim .' C-m
+       new-window   -t "$sess" -n git -c "$root"   \; \
+       send-keys     -t "$sess":nvim 'nvim .' C-m  \; \
+       send-keys     -t "$sess":git 'lazygit' C-m  \; \
+       select-window -t "$sess":nvim
 }
 
 
@@ -95,7 +97,7 @@ pick_project() {
 
   # empty after removing all whitespace?
   if [[ -z "${list//[[:space:]]/}" ]]; then
-    die "No projects found. Set SESSIONIZE_DIRS or install zoxide."
+    die "No projects found. Set sssn_DIRS or install zoxide."
   fi
 
   command -v fzf >/dev/null 2>&1 || die "--pick requires fzf. Install fzf or run without --pick."
