@@ -10,7 +10,7 @@ font-size = 12
 window-width = 140
 window-height = 40
 
-background-blur = true
-background-opacity = 0.9
+# background-blur = true
+# background-opacity = 0.9
 
 title = " "
