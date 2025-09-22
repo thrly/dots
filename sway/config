@@ -17,6 +17,7 @@ set $right l
 
 # Your preferred terminal emulator
 set $term ghostty
+
 # Your preferred application launcher
 # set $menu rofi -show run
 set $menu wmenu-run
@@ -25,48 +26,36 @@ set $menu wmenu-run
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-output DP-3 resolution 1920x1080 position 0,0
-output DP-2 resolution 1920x1080 transform 270 position -1920,0 
-focus output DP-3
 
-exec xrandr --output DP-3 --primary
-exec xrandr --output DP-2 --nonprimary
-workspace 1 output primary
-workspace 2 output primary
-workspace 3 output primary
-workspace 4 output nonprimary
+# OUTPUTS from /hosts - laptop/desktop monitors:
+include ./hosts/desktop.conf
 
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-#
-#
 ### Startup items.
+# for_window [app_id="ghostty"]   move to workspace 1
+# for_window [app_id="firefox" title="^(?!.*(ChatGPT|WhatsApp|Spotify)).*$"]   move to workspace 2
+# for_window [app_id="firefox" title=".*(ChatGPT|WhatsApp|Spotify).*"]   move to workspace 5
+# for_window [app_id="spotify"]   move to workspace 5
 
 # mako = notification daemon
 exec mako
 
-exec --no-startup-id firefox
-assign [class="firefox"] → workspace 1
+exec --no-startup-id swaymsg 'workspace number 1; exec $term'
+# TODO: these startup workspaces aren't working / opening in the right place
+# exec --no-startup-id swaymsg 'workspace number 2; exec firefox'
+# exec --no-startup-id swaymsg 'workspace number 3; exec firefox --new-window https://web.whatsapp.com/'
+# exec --no-startup-id swaymsg 'workspace number 3; exec spotify'
 
-exec --no-startup-id $term
-assign [class=$term] → wordspace 2
-
-exec --no-startup-id spotify
-assign [class="spotify"] → workspace 4
-
-
+# finish at workspace 1
+exec --no-startup-id swaymsg 'workspace number 1'
 
 ### Idle configuration
 #
 # Example configuration:
 #
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+         timeout 300 'swaylock -f -c 000000' \
+         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -100,8 +89,6 @@ client.unfocused        $midground     $background $foreground    $midground    
 client.urgent           $foreground    $background $midground     $foreground    $foreground
 
 # TODO: fix focus window borders
-#
-
 
 ### Key bindings
 #
@@ -281,25 +268,5 @@ for_window [title="Open Files"] floating enable
 # AV
 for_window [app_id=pavucontrol] floating enable
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
-
-    font "Hack Nerd Font" 10
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%a %x ◇ %H:%M'; do sleep 1; done
-
-    colors {
-        statusline #c0caf5
-        background #1f2335
-        focused_workspace #565f89 #bb9af7 #24283b 
-        inactive_workspace #3b426100 #33b42600 #bb9af7
-        active_workspace #32323200 #32323200 #ff007c
-    }
-}
-
+include ./swaybar.conf
 include /etc/sway/config.d/*
