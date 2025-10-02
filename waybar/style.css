@@ -1,0 +1,51 @@
+* {
+  font-family: "Hack Nerd Font";
+  font-size: 12px;
+}
+window#waybar {
+  background: #1f2335;
+  color: #c0caf5;
+}
+
+/* Workspaces block */
+#workspaces button {
+  padding: 0 6px;
+  margin: 0 1px;
+  /* border-radius: 2px; */
+  color: #c0caf5;
+  background: transparent;
+}
+
+/* Focused (current) workspace */
+#workspaces button.focused {
+  background: #bb9af7;
+  color: #24283b;
+  font-weight: bold;
+}
+
+/* Visible but not focused */
+#workspaces button.visible {
+  background: #565f89;
+  color: #c0caf5;
+}
+
+/* Urgent workspace (window demands attention) */
+#workspaces button.urgent {
+  background: #ff007c;
+  color: #24283b;
+}
+
+#mpd,
+#idle_inhibitor,
+#keyboard-state,
+#battery,
+#bat2,
+#power,
+/* #custom, */
+#network,
+#bluetooth,
+#pulseaudio,
+#tray,
+#clock {
+  padding: 0 12px;
+}

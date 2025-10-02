@@ -19,8 +19,8 @@ set $right l
 set $term ghostty
 
 # Your preferred application launcher
-# set $menu rofi -show run
-set $menu wmenu-run
+set $menu rofi -show run
+# set $menu wmenu-run
 
 ### Output configuration
 #
@@ -28,7 +28,7 @@ set $menu wmenu-run
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 # OUTPUTS from /hosts - laptop/desktop monitors:
-include ./hosts/desktop.conf
+include ./hosts/zenbook.conf
 
 ### Startup items.
 # for_window [app_id="ghostty"]   move to workspace 1
@@ -38,6 +38,14 @@ include ./hosts/desktop.conf
 
 # mako = notification daemon
 exec mako
+
+exec --no-startup-id blueman-applet
+# bluetooth tray icon
+# exec --no-startup-id pasystray # audio tray icon
+
+# bindsym $mod+n exec nm-connection-editor
+# bindsym $mod+b exec blueman-manager # BUG: keybind collision
+# bindsym $mod+v exec pavucontrol
 
 exec --no-startup-id swaymsg 'workspace number 1; exec $term'
 # TODO: these startup workspaces aren't working / opening in the right place
@@ -98,7 +106,7 @@ client.urgent           $foreground    $background $midground     $foreground   
     bindsym $mod+Return exec $term
 
     # Kill focused window
-    bindsym $mod+Shift+q kill
+    bindsym $mod+q kill
 
     # Start your launcher
     bindsym $mod+d exec $menu
@@ -246,7 +254,7 @@ bindsym $mod+r mode "resize"
 #
 # gaps
 #
-gaps inner 10
+gaps inner 5
 smart_gaps off                                                                                          
 
 #
@@ -267,6 +275,11 @@ for_window [title="Open Files"] floating enable
 
 # AV
 for_window [app_id=pavucontrol] floating enable
+for_window [app_id=blueman*] floating enable
 
-include ./swaybar.conf
+# include ./swaybar.conf
+bar {
+  swaybar_command waybar
+}
+
 include /etc/sway/config.d/*
