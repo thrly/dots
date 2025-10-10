@@ -63,9 +63,9 @@ exec --no-startup-id swaymsg 'workspace number 1'
 # Example configuration:
 #
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
+         timeout 300 'swaylock -f -c 222436' \
          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+         before-sleep 'swaylock -f -c 222436'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -89,7 +89,7 @@ hide_edge_borders smart
 smart_borders on
 default_border pixel 2
 set $clear #ffffff00
-set $foreground #ff007c
+set $foreground #c099ff
 set $background #1f2335
 set $midground #565f89
 # class                     border      backgr.     text        indicator   child_border
