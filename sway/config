@@ -41,6 +41,8 @@ include ./hosts/zenbook.conf
 exec mako
 exec makoctl reload
 
+exec_always --no-startup-id autotiling
+
 exec --no-startup-id blueman-applet
 # bluetooth tray icon
 # exec --no-startup-id pasystray # audio tray icon
@@ -66,6 +68,7 @@ exec swayidle -w \
          timeout 300 'swaylock -f -c 222436' \
          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'swaylock -f -c 222436'
+bindsym $mod+Shift+Alt+l exec swaynag -t warning -m 'You pressed the SLEEP shortcut. Do you really want to sleep?' -B 'Yes, sleep' 'systemctl suspend'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -155,6 +158,10 @@ client.urgent           $foreground    $background $midground     $foreground   
 #
 # Workspaces:
 #
+    # cycle workspaces 
+    bindsym $mod+x workspace next
+    bindsym $mod+z workspace prev
+
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -189,9 +196,9 @@ client.urgent           $foreground    $background $midground     $foreground   
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
+    # bindsym $mod+s layout stacking
     # bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    # bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
