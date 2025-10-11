@@ -65,7 +65,11 @@ prompt, entry, element-text, element-icon {
 }
 
 prompt {
-    text-color: @accent-color;
+    text-color: @purple;
+}
+entry {
+  font: "VictorMono NF Bold Italic 12";
+  text-color: @orange;
 }
 
 listview {
@@ -81,7 +85,7 @@ element {
 }
 
 element normal urgent {
-    text-color: @teal;
+    text-color: @magenta2;
 }
 
 element normal active {
@@ -98,6 +102,7 @@ element selected {
 
 element selected normal {
     background-color:   @accent-color;
+    text-color: @bgdark1;
 }
 
 

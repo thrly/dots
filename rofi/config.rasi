@@ -1,6 +1,5 @@
 configuration {
-  modi: "drun,run,window";
-  font: "monospace 11";
+  modes: "run,drun,window";
   location: 0;
   show-icons: false;
   case-sensitive: false;
@@ -11,7 +10,7 @@ configuration {
   kb-accept-entry: "Return,KP_Enter";
   kb-row-up: "Up,Control+p";
   kb-row-down: "Down,Control+n";
-  font: "Hack Nerd Font 12";
+  font: "JetBrainsMono NF 12";
   show-icons: false;
 
 /*	modes: "window,drun,run,ssh";*/
