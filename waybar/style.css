@@ -1,6 +1,6 @@
 * {
   font-family: "Hack Nerd Font";
-  font-size: 12px;
+  font-size: 14px;
 }
 window#waybar {
   background: #1f2335;
@@ -9,7 +9,7 @@ window#waybar {
 
 /* Workspaces block */
 #workspaces button {
-  padding: 0 2px;
+  padding: 0 4px;
   /* margin: 0 1px; */
   color: #c0caf5;
   border-radius: 2px;

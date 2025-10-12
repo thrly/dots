@@ -68,6 +68,10 @@ prompt {
     text-color: @accent-color;
 }
 
+entry {
+  text-color: @orange;
+}
+
 listview {
     lines:      6;
     columns:    1;
@@ -81,7 +85,7 @@ element {
 }
 
 element normal urgent {
-    text-color: @teal;
+    text-color: @magenta2;
 }
 
 element normal active {

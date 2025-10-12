@@ -1,6 +1,6 @@
 configuration {
+  font: "Hack Nerd Font 12";
   modi: "drun,run,window";
-  font: "monospace 11";
   location: 0;
   show-icons: false;
   case-sensitive: false;
@@ -11,7 +11,6 @@ configuration {
   kb-accept-entry: "Return,KP_Enter";
   kb-row-up: "Up,Control+p";
   kb-row-down: "Down,Control+n";
-  font: "Hack Nerd Font 12";
   show-icons: false;
 
 /*	modes: "window,drun,run,ssh";*/
@@ -180,4 +179,4 @@ configuration {
   }
 }
 
-@theme "/home/thrly/.config/rofi/themes/tokyonight.rasi"
+@theme "./themes/tokyonight.rasi"
