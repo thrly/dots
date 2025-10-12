@@ -28,8 +28,16 @@ set $menu rofi -show run
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
-# OUTPUTS from /hosts - laptop/desktop monitors:
-include ./hosts/zenbook.conf
+### Set random wallpaper
+output "*" bg $(find "~/.config/wallpaper/" -type f | shuf -n 1) fill 
+ 
+
+# Hide mouse cursor after a (ms) period of inactivity.
+seat seat0 hide_cursor 3000
+
+# OUTPUTS from /hosts - laptop/desktop monitors:/
+# create a local hosts.conf file (not symlinked) if required (i.e. on laptop)
+include ~/.conf/swayhost.conf
 
 ### Startup items.
 # for_window [app_id="ghostty"]   move to workspace 1
@@ -53,7 +61,7 @@ exec --no-startup-id blueman-applet
 
 exec --no-startup-id swaymsg 'workspace number 1; exec $term'
 # TODO: these startup workspaces aren't working / opening in the right place
-# exec --no-startup-id swaymsg 'workspace number 2; exec firefox'
+exec --no-startup-id swaymsg 'workspace number 2; exec firefox'
 # exec --no-startup-id swaymsg 'workspace number 3; exec firefox --new-window https://web.whatsapp.com/'
 # exec --no-startup-id swaymsg 'workspace number 3; exec spotify'
 
@@ -65,9 +73,9 @@ exec --no-startup-id swaymsg 'workspace number 1'
 # Example configuration:
 #
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
+         timeout 300 'swaylock -f -c #3b4261' \
          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+         before-sleep 'swaylock -f -c #3b4261'
 bindsym $mod+Shift+Alt+l exec swaynag -t warning -m 'You pressed the SLEEP shortcut. Do you really want to sleep?' -B 'Yes, sleep' 'systemctl suspend'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
@@ -90,7 +98,7 @@ input "type:keyboard" {
 # default_border none
 hide_edge_borders smart
 smart_borders on
-default_border pixel 2
+default_border pixel 1
 set $clear #ffffff00
 set $foreground #ff007c
 set $background #1f2335
@@ -117,7 +125,7 @@ client.urgent           $foreground    $background $midground     $foreground   
     bindsym $mod+d exec $menu
 
 # Start browser
-    bindsym $mod+w exec $browser
+    bindsym $mod+b exec $browser
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -192,8 +200,8 @@ client.urgent           $foreground    $background $midground     $foreground   
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+    bindsym $mod+shift+b splith
+    bindsym $mod+shift+v splitv
 
     # Switch the current container between different layout styles
     # bindsym $mod+s layout stacking
@@ -266,8 +274,8 @@ bindsym $mod+r mode "resize"
 #
 # gaps
 #
-gaps inner 5
-smart_gaps off                                                                                          
+# gaps inner 5
+# smart_gaps off                                                                                          
 
 #
 # Screenshots
