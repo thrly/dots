@@ -274,8 +274,10 @@ bindsym $mod+r mode "resize"
 #
 # gaps
 #
-# gaps inner 5
-# smart_gaps off                                                                                          
+# smart gaps only if workspace has one window:
+smart_gaps inverse_outer
+gaps horizontal 320 
+gaps vertical 120 
 
 #
 # Screenshots
