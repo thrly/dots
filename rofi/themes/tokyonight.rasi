@@ -72,9 +72,6 @@ entry {
   text-color: @orange;
 }
 
-entry {
-  text-color: @orange;
-}
 
 listview {
     lines:      6;
