@@ -170,6 +170,13 @@ client.urgent           $foreground    $background $midground     $foreground   
     bindsym $mod+x workspace next
     bindsym $mod+z workspace prev
 
+# Quick switch workspaces
+    bindsym $mod+c workspace number 1
+    bindsym $mod+y workspace number 1
+    bindsym $mod+u workspace number 2
+    bindsym $mod+i workspace number 3
+    bindsym $mod+o workspace number 4
+    
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -200,8 +207,8 @@ client.urgent           $foreground    $background $midground     $foreground   
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+shift+b splith
-    bindsym $mod+shift+v splitv
+    bindsym $mod+Shift+b splith
+    bindsym $mod+Shift+v splitv
 
     # Switch the current container between different layout styles
     # bindsym $mod+s layout stacking
@@ -218,7 +225,7 @@ client.urgent           $foreground    $background $midground     $foreground   
     bindsym $mod+space focus mode_toggle
 
     # Move focus to the parent container
-    bindsym $mod+a focus parent
+    bindsym $mod+Shift+a focus parent
 #
 # Scratchpad:
 #
@@ -268,7 +275,7 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
-    bindsym Print exec grim
+    bindsym $mod+Ctrl+Shift+p exec grim
 
 
 #
@@ -276,8 +283,13 @@ bindsym $mod+r mode "resize"
 #
 # smart gaps only if workspace has one window:
 smart_gaps inverse_outer
-gaps horizontal 320 
+gaps horizontal 860 
 gaps vertical 120 
+
+# gaps on workspace 9
+workspace 10 gaps horizontal 100
+workspace 10 gaps vertical 30
+workspace 10 gaps inner 30
 
 #
 # Screenshots
