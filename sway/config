@@ -35,10 +35,6 @@ output "*" bg $(find "~/.config/wallpaper/" -type f | shuf -n 1) fill
 # Hide mouse cursor after a (ms) period of inactivity.
 seat seat0 hide_cursor 3000
 
-# OUTPUTS from /hosts - laptop/desktop monitors:/
-# create a local hosts.conf file (not symlinked) if required (i.e. on laptop)
-include ~/.conf/swayhost.conf
-
 ### Startup items.
 # for_window [app_id="ghostty"]   move to workspace 1
 # for_window [app_id="firefox" title="^(?!.*(ChatGPT|WhatsApp|Spotify)).*$"]   move to workspace 2
@@ -315,5 +311,9 @@ for_window [app_id=blueman*] floating enable
 bar {
   swaybar_command waybar
 }
+
+# OUTPUTS from /hosts - laptop/desktop monitors:/
+# create a local hosts.conf file (not symlinked) if required (i.e. on laptop)
+include ~/.config/swayhost.conf
 
 include /etc/sway/config.d/*
