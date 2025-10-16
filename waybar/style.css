@@ -1,15 +1,16 @@
 * {
   font-family: "Hack Nerd Font";
-  font-size: 12px;
+  font-size: 13px;
 }
 window#waybar {
-  background: #1f2335;
+  background: #222436;
+  /* background: #1f2335; */
   color: #c0caf5;
 }
 
 /* Workspaces block */
 #workspaces button {
-  padding: 0 2px;
+  padding: 0 4px;
   /* margin: 0 1px; */
   color: #c0caf5;
   border-radius: 2px;
@@ -31,7 +32,7 @@ window#waybar {
 
 /* Urgent workspace (window demands attention) */
 #workspaces button.urgent {
-  background: #ff007c;
+  background: #fca7ea;
   color: #24283b;
 }
 

@@ -28,8 +28,16 @@ set $menu rofi -show run
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
-# OUTPUTS from /hosts - laptop/desktop monitors:
-include ./hosts/zenbook.conf
+### Set random wallpaper
+output "*" bg $(find "~/.config/wallpaper/" -type f | shuf -n 1) fill 
+ 
+
+# Hide mouse cursor after a (ms) period of inactivity.
+seat seat0 hide_cursor 3000
+
+# OUTPUTS from /hosts - laptop/desktop monitors:/
+# create a local hosts.conf file (not symlinked) if required (i.e. on laptop)
+include ~/.conf/swayhost.conf
 
 ### Startup items.
 # for_window [app_id="ghostty"]   move to workspace 1
@@ -53,7 +61,7 @@ exec --no-startup-id blueman-applet
 
 exec --no-startup-id swaymsg 'workspace number 1; exec $term'
 # TODO: these startup workspaces aren't working / opening in the right place
-# exec --no-startup-id swaymsg 'workspace number 2; exec firefox'
+exec --no-startup-id swaymsg 'workspace number 2; exec firefox'
 # exec --no-startup-id swaymsg 'workspace number 3; exec firefox --new-window https://web.whatsapp.com/'
 # exec --no-startup-id swaymsg 'workspace number 3; exec spotify'
 
@@ -65,10 +73,10 @@ exec --no-startup-id swaymsg 'workspace number 1'
 # Example configuration:
 #
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 222436' \
+         timeout 300 'swaylock -f -c #3b4261' \
          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 222436'
-bindsym $mod+Shift+Alt+l exec swaynag -t warning -m 'You pressed the SLEEP shortcut. Do you really want to sleep?' -Z 'Yes, sleep' 'systemctl suspend' -f "Hack Nerd Font 12" --background #c099ff
+         before-sleep 'swaylock -f -c #3b4261'
+bindsym $mod+Shift+Alt+l exec swaynag -t warning -m 'You pressed the SLEEP shortcut. Do you really want to sleep?' -B 'Yes, sleep' 'systemctl suspend'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -90,7 +98,7 @@ input "type:keyboard" {
 # default_border none
 hide_edge_borders smart
 smart_borders on
-default_border pixel 2
+default_border pixel 1
 set $clear #ffffff00
 set $foreground #c099ff
 set $background #1f2335
@@ -117,7 +125,7 @@ client.urgent           $foreground    $background $midground     $foreground   
     bindsym $mod+d exec $menu
 
 # Start browser
-    bindsym $mod+w exec $browser
+    bindsym $mod+b exec $browser
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -162,6 +170,13 @@ client.urgent           $foreground    $background $midground     $foreground   
     bindsym $mod+x workspace next
     bindsym $mod+z workspace prev
 
+# Quick switch workspaces
+    bindsym $mod+c workspace number 1
+    bindsym $mod+y workspace number 1
+    bindsym $mod+u workspace number 2
+    bindsym $mod+i workspace number 3
+    bindsym $mod+o workspace number 4
+    
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -192,8 +207,8 @@ client.urgent           $foreground    $background $midground     $foreground   
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+    bindsym $mod+Shift+b splith
+    bindsym $mod+Shift+v splitv
 
     # Switch the current container between different layout styles
     # bindsym $mod+s layout stacking
@@ -210,7 +225,7 @@ client.urgent           $foreground    $background $midground     $foreground   
     bindsym $mod+space focus mode_toggle
 
     # Move focus to the parent container
-    bindsym $mod+a focus parent
+    bindsym $mod+Shift+a focus parent
 #
 # Scratchpad:
 #
@@ -260,14 +275,21 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
-    bindsym Print exec grim
+    bindsym $mod+Ctrl+Shift+p exec grim
 
 
 #
 # gaps
 #
-gaps inner 5
-smart_gaps off                                                                                          
+# smart gaps only if workspace has one window:
+smart_gaps inverse_outer
+gaps horizontal 860 
+gaps vertical 120 
+
+# gaps on workspace 9
+workspace 10 gaps horizontal 100
+workspace 10 gaps vertical 30
+workspace 10 gaps inner 30
 
 #
 # Screenshots
