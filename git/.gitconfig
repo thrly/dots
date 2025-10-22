@@ -1,0 +1,21 @@
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[user]
+	name = thrly
+	email = o.thrly@gmail.com
+[init]
+	defaultBranch = main
+[core]
+	editor = nvim
+[alias]
+	co = checkout
+	cob = checkout -b
+	cfed = config --global -e
+  new-work = "!git checkout main && git pull && git cob"
+  s = status
+  cmt = commit -m
+  last = log -1 HEAD
