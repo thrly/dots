@@ -1,10 +1,16 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
+# Set CDPATH for quick cd to common dirs
+export CDPATH=$HOME:$HOME/dev:$HOME/dots:$HOME/Documents/
+
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 export XDG_CONFIG_HOME="$HOME/.config"
+
+# set ozone electron apps to open with wayland
+export ELECTRON_OZONE_PLATFORM_HINT="wayland"
 
 # zsh theme
 ZSH_THEME="robbyrussell"
@@ -14,7 +20,7 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # enable command auto-correction.
 ENABLE_CORRECTION="true"
 
-# Uncomment the following line to display red dots whilst waiting for completion.
+# display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
@@ -24,8 +30,10 @@ plugins=(
     fast-syntax-highlighting
     zsh-autocomplete
     colored-man-pages
-    # zsh-vi-mode
+    zsh-vi-mode
   )
+
+# set -o vi
 
 source $ZSH/oh-my-zsh.sh
 source ~/.oh-my-zsh/custom/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
@@ -33,9 +41,6 @@ source ~/.oh-my-zsh/custom/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
 
 # Default programs
 export BROWSER="firefox"
@@ -51,18 +56,32 @@ export VISUAL='nvim'
 alias zshconfig="nvim ~/dots/zsh/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias nvimconfig="nvim ~/dots/nvim/"
-alias vvv="nvim ."
+alias v="nvim ."
 
 alias gtst="git status"
 alias gtcm="git commit -m "
 alias ghcl="gh repo clone "
 alias lg="lazygit"
 
+alias ffx="firefox --new-window https://"
+alias whatsapp="firefox --new-window https://web.whatsapp.com &"
+
+function mkcd {
+  if [ ! -n "$1" ]; then
+    echo "Enter directory name"
+  elif [ -d "$1" ]; then
+    echo "$1 already exists"
+  else
+    mkdir $1 && cd $1
+  fi
+}
+
 # Add Oh My Posh, with default config theme:
 eval "$(oh-my-posh init zsh --config '~/dots/oh-my-posh/thrly.yaml')"
 
 # Add Zoxide for cd alternative
 eval "$(zoxide init zsh)"
+alias cd="z"
 
 # export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
@@ -102,3 +121,6 @@ export sssn_DIRS="$HOME/dev:$HOME/work:$HOME/projects"
 #   esac
 #   _omp_redraw-prompt
 # }
+
+timenow=$(date "+%A %m %Y %R")
+echo "Hello, $USER \nIt's $timenow"
