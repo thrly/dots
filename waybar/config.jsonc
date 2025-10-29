@@ -112,7 +112,7 @@
   },
   "clock": {
     "timezone": "UK/London",
-    "format": "{:%H:%M  ◇  %a %x}",
+    "format": "{:%H:%M  ◇  %A %d/%m/%Y}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "format-alt": "{:%Y-%m-%d}",
   },

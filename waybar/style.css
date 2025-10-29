@@ -2,10 +2,15 @@
   font-family: "Hack Nerd Font";
   font-size: 13px;
 }
+
 window#waybar {
+  /* background: transparent; */
   background: #222436;
   /* background: #1f2335; */
   color: #c0caf5;
+}
+#workspaces {
+  background: #222436;
 }
 
 /* Workspaces block */
