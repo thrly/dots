@@ -44,7 +44,7 @@ seat seat0 hide_cursor 3000
 # mako = notification daemon
 exec mako
 exec makoctl reload
-
+exec swayosd-server
 exec_always --no-startup-id autotiling
 
 exec --no-startup-id blueman-applet
@@ -58,8 +58,8 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id swaymsg 'workspace number 1; exec $term'
 # TODO: these startup workspaces aren't working / opening in the right place
 exec --no-startup-id swaymsg 'workspace number 2; exec firefox'
-# exec --no-startup-id swaymsg 'workspace number 3; exec firefox --new-window https://web.whatsapp.com/'
-# exec --no-startup-id swaymsg 'workspace number 3; exec spotify'
+exec --no-startup-id swaymsg 'workspace number 5; exec firefox --new-window https://web.whatsapp.com/'
+exec --no-startup-id swaymsg 'workspace number 5; exec spotify-launcher'
 
 # finish at workspace 1
 exec --no-startup-id swaymsg 'workspace number 1'
@@ -115,7 +115,7 @@ client.urgent           $foreground    $background $midground     $foreground   
     bindsym $mod+Return exec $term
 
     # Kill focused window
-    bindsym $mod+q kill
+    bindsym $mod+Shift+q kill
 
     # Start your launcher
     bindsym $mod+d exec $menu
@@ -163,8 +163,10 @@ client.urgent           $foreground    $background $midground     $foreground   
 # Workspaces:
 #
     # cycle workspaces 
-    bindsym $mod+x workspace next
     bindsym $mod+z workspace prev
+    bindsym $mod+x workspace next
+    bindcode 201 workspace prev
+    bindcode 202 workspace next
 
 # Quick switch workspaces
     bindsym $mod+c workspace number 1
@@ -262,16 +264,26 @@ bindsym $mod+r mode "resize"
 #
 # Utilities:
 #
-    # Special keys to adjust volume via PulseAudio
-    bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
-    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
-    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
-    bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
-    # Special keys to adjust brightness via brightnessctl
-    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-    # Special key to take a screenshot with grim
-    bindsym $mod+Ctrl+Shift+p exec grim
+
+# Capslock (If you don't want to use the backend)
+bindsym --release Caps_Lock exec swayosd-client --caps-lock
+# Play/Pause current player
+bindsym XF86AudioPlay exec swayosd-client --playerctl play-pause
+# Next song for current player
+# bindsym XF86AudioPlay exec swayosd-client --playerctl play-pause
+# Special keys to adjust volume via PulseAudio
+# bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle && swayosd-client --output-volume mute-toggle 
+# bindsym --locked XF86AudioLowerVolume exec wpctl set-volume -l 1. @DEFAULT_AUDIO_SINK@ 5%- && swayosd-client --output-volume lower 
+# bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume -l 1. @DEFAULT_AUDIO_SINK@ 5%+ && swayosd-client --output-volume raise 
+bindsym --locked XF86AudioMute exec swayosd-client --output-volume mute-toggle 
+bindsym --locked XF86AudioLowerVolume exec swayosd-client --output-volume lower 
+bindsym --locked XF86AudioRaiseVolume exec swayosd-client --output-volume raise 
+# bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle && swayosd-client --input-volume mute-toggle
+# Special keys to adjust brightness via brightnessctl
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+# Special key to take a screenshot with grim
+bindsym $mod+Ctrl+Shift+p exec grim
 
 
 #
@@ -299,15 +311,20 @@ bindsym $mod+g       exec $term -e ~/bin/swayrec
 # Apps
 #
 # filemanagers
-for_window [app_id=Dolphin] floating enable
-for_window [app_id=dolphin] floating enable
+for_window [app_id="[Dd]olphin"] floating enable
+# for_window [app_id=dolphin] floating enable
+for_window [app_id="[Tt]hunar"] floating enable
+# for_window [app_id=thunar] floating enable
+
 for_window [title="Open Files"] floating enable
 
 # AV
 for_window [app_id=pavucontrol] floating enable
+for_window [app_id=pipewire] floating enable
 for_window [app_id=blueman*] floating enable
 
-# include ./swaybar.conf
+
+
 bar {
   swaybar_command waybar
 }
