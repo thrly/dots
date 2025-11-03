@@ -1,0 +1,33 @@
+
+window{
+  border-radius: 50px;
+  border: none;
+  opacity: 0.95;
+  margin: 16px;
+  border: 2px solid;
+  }
+
+image, label {
+    /* color: #{"@theme_fg_color"}; */
+    font-family: 'Hack Nerd Font';
+    font-size: 11pt;
+  }
+
+progressbar {
+    min-height: 6px;
+    border-radius: 5px;
+    background: transparent;
+    border: none;
+  }
+  trough {
+    min-height: inherit;
+    border-radius: inherit;
+    border: none;
+    /* background: #{"alpha(@theme_fg_color, 0.5)"}; */
+  }
+  progress {
+    min-height: inherit;
+    border-radius: inherit;
+    border: none;
+    /* background: #{"@theme_fg_color"}; */
+  }
