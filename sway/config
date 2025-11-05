@@ -58,8 +58,6 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id swaymsg 'workspace number 1; exec $term'
 # TODO: these startup workspaces aren't working / opening in the right place
 exec --no-startup-id swaymsg 'workspace number 2; exec firefox'
-exec --no-startup-id swaymsg 'workspace number 5; exec firefox --new-window https://web.whatsapp.com/'
-exec --no-startup-id swaymsg 'workspace number 5; exec spotify-launcher'
 
 # finish at workspace 1
 exec --no-startup-id swaymsg 'workspace number 1'
@@ -291,8 +289,9 @@ bindsym $mod+Ctrl+Shift+p exec grim
 #
 # smart gaps only if workspace has one window:
 smart_gaps inverse_outer
-gaps horizontal 860 
-gaps vertical 120 
+# gaps horizontal 860 
+gaps horizontal 688 
+gaps vertical 100 
 
 # gaps on workspace 9
 workspace 10 gaps horizontal 100
