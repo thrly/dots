@@ -124,3 +124,6 @@ export sssn_DIRS="$HOME/dev:$HOME/work:$HOME/projects"
 
 timenow=$(date "+%A %m %Y %R")
 echo "Hello, $USER \nIt's $timenow"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
