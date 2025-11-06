@@ -15,7 +15,9 @@
 	co = checkout
 	cob = checkout -b
 	cfed = config --global -e
-  new-work = "!git checkout main && git pull && git cob"
+  new-work = "! git checkout main && git pull && git cob"
   s = status
   cmt = commit -m
   last = log -1 HEAD
+  br = branch
+	aliases = config --get-regexp '^alias\\.'
