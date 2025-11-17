@@ -170,7 +170,7 @@ blocks:
           discharging_icon: " "
         template: " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }}{{ .Error }} "
         foreground: "#ffffff"
-        powerline_symbol: 
+        powerline_symbol: ""
         background: "#ff5722"
         type: battery
         style: powerline
@@ -187,7 +187,15 @@ blocks:
       #   background: "#B388FF"
       #   type: time
       #   style: diamond
-      #   invert_powerline: true
+      - leading_diamond: ""
+        trailing_diamond: ""
+        # template: " {{ .CurrentDate | date .Format }} "
+        template: " {{ .HostName }} "
+        foreground: "#ffffff"
+        background: "#B388FF"
+        type: time
+        style: diamond
+        invert_powerline: true #   invert_powerline: true
 
 version: 3
 final_space: true
