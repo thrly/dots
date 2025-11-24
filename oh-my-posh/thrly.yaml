@@ -187,8 +187,8 @@ blocks:
       #   background: "#B388FF"
       #   type: time
       #   style: diamond
-      - leading_diamond: ""
-        trailing_diamond: ""
+      # - leading_diamond: ""
+      - trailing_diamond: ""
         # template: " {{ .CurrentDate | date .Format }} "
         template: " {{ .HostName }} "
         foreground: "#ffffff"
