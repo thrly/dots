@@ -63,6 +63,9 @@ alias gtcm="git commit -m "
 alias ghcl="gh repo clone "
 alias lg="lazygit"
 
+# useful for django dev
+alias djmng="python manage.py"
+
 alias ffx="firefox --new-window https://"
 alias whatsapp="firefox --new-window https://web.whatsapp.com &"
 
