@@ -3,10 +3,14 @@
 theme = "Solarized Osaka Night"
 # theme = "tokyonight-storm"
 
-font-family = "Hack Nerd Font"
-font-family-bold = "Hack Nerd Font"
-font-family-italic = "VictorMono NF"
-font-family-bold-italic = "VictorMono NF"
+font-family = "BlexMono Nerd Font"
+font-family-bold = "BlexMono Nerd Font"
+font-family-italic = "BlexMono Nerd Font Italic"
+font-family-bold-italic = "BlexMono Nerd Font Bold Italic"
+# font-family = "Hack Nerd Font"
+# font-family-bold = "Hack Nerd Font"
+# font-family-italic = "VictorMono NF"
+# font-family-bold-italic = "VictorMono NF"
 font-size = 12
 
 window-width = 140
