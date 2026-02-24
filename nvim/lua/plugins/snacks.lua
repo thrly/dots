@@ -9,7 +9,11 @@ return {
       hidden = true,
       -- show files ignored by git like node_modules
       ignored = true,
-      exclude = { "node_modules", ".git" },
+      -- exclude = { "node_modules", ".git" },
+      replace_netrw = true,
+    },
+    explorer = {
+      replace_netrw = true, -- use explorer on open
     },
   },
 }

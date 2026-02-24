@@ -43,6 +43,27 @@ return {
       vim.cmd("colorscheme rose-pine")
     end,
   },
+  {
+    "vague-theme/vague.nvim",
+    lazy = true, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other plugins
+    config = function()
+      -- NOTE: you do not need to call setup if you don't want to.
+      require("vague").setup({
+        -- optional configuration here
+      })
+      vim.cmd("colorscheme vague")
+    end,
+  },
+
+  {
+    "rebelot/kanagawa.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd("colorscheme kanagawa")
+    end,
+  },
 
   { -- set default/starting colorscheme
     "LazyVim/LazyVim",
