@@ -29,6 +29,3 @@ vim.keymap.set("i", "<C-a>", "<C-o>A", { desc = "Go to the end of the line" })
 
 -- yank to end of line with Y
 vim.keymap.set("n", "Y", "$y", { desc = "Yank to End of lines" })
-
--- oil file editor
-vim.keymap.set("n", "<leader>o", "<CMD>Oil<CR>", { desc = "Oil: Edit directory as buffer" })
