@@ -1,6 +1,7 @@
 # thrly's ghostty config
 
-theme = "Solarized Osaka Night"
+theme = "Kanagawa Wave"
+# theme = "Solarized Osaka Night"
 # theme = "tokyonight-storm"
 
 font-family = "BlexMono Nerd Font"
