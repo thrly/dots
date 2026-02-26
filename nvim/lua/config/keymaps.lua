@@ -29,3 +29,15 @@ vim.keymap.set("i", "<C-a>", "<C-o>A", { desc = "Go to the end of the line" })
 
 -- yank to end of line with Y
 vim.keymap.set("n", "Y", "$y", { desc = "Yank to End of lines" })
+
+
+-- noice notifications
+vim.keymap.set("n", "<leader>nl", function()
+  require("noice").cmd("last")
+end, {desc = "Noice: Show last notification"})
+vim.keymap.set("n", "<leader>nh", function()
+  require("noice").cmd("history")
+end, {desc = "Noice: Show notification History"})
+vim.keymap.set("n", "<leader>nd", function()
+  require("noice").cmd("dismiss")
+end, {desc = "Noice: Dismiss notifications"})
