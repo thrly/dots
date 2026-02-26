@@ -130,3 +130,5 @@ echo "Hello, $USER \nIt's $timenow"
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+. "$HOME/.local/bin/env"
